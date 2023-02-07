@@ -24,7 +24,7 @@ jobs:
     - name: Install DAOS
       run: |
         cd daos
-         ./utils/scripts/install-ubuntu.sh
+        sudo ./utils/scripts/install-ubuntu.sh
     - name: Install HDF5
       run: |
         cmake --version
