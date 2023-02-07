@@ -30,7 +30,7 @@ jobs:
         CXX: mpic++
         CC: mpicc
         HDF5_PLUGIN_PATH: /usr/local/lib
-        HDF5_VOL_CONNECTOR: daos under_vol=0\;under_info={}
+        HDF5_VOL_CONNECTOR: daos
         LD_LIBRARY_PATH: /usr/local/lib:$LD_LIBRARY_PATH
       run: |
         set
