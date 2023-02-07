@@ -9,6 +9,11 @@ jobs:
     steps:
     - name: Checkout vol-daos
       uses: actions/checkout@v3
+    - name: Checkout DAOS
+      uses: actions/checkout@v3
+      with:
+        repository: daos-stack/daos
+        path: daos
     - name: Checkout HDF5
       uses: actions/checkout@v3
       with:
@@ -16,6 +21,10 @@ jobs:
         path: hdf5
     - name: Install dependencies
       run: sudo apt-get install ninja-build automake autoconf libtool libtool-bin libopenmpi-dev
+    - name: Install DAOS
+      run: |
+        cd daos
+         ./utils/scripts/install-ubuntu20.sh
     - name: Install HDF5
       run: |
         cmake --version
