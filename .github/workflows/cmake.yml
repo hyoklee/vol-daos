@@ -25,6 +25,7 @@ jobs:
       run: |
         cd daos
         sudo ./utils/scripts/install-ubuntu.sh
+        pip install -r requirements.txt
         scon --build-deps=yes
     - name: Install HDF5
       run: |
