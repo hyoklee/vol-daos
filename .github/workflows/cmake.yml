@@ -14,6 +14,7 @@ jobs:
       with:
         repository: daos-stack/daos
         path: daos
+        ref: refs/tags/v2.2.0
     - name: Checkout HDF5
       uses: actions/checkout@v3
       with:
