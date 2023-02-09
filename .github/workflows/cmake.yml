@@ -12,7 +12,7 @@ jobs:
     - name: Checkout DAOS
       uses: actions/checkout@v3
       with:
-        repository: daos-stack/daos
+        repository: hyoklee/daos
         path: daos
     - name: Checkout HDF5
       uses: actions/checkout@v3
