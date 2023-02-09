@@ -50,7 +50,7 @@ jobs:
         set
         mkdir build
         cd build
-        cmake .. -DHDF5_DIR=/usr/local
+        cmake .. -DHDF5_DIR=/usr/local -DBUILD_TESTING=ON
         sudo make -j install
         ls /usr/local/lib
         ctest --output-on-failure
