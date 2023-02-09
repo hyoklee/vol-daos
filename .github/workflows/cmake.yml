@@ -20,7 +20,9 @@ jobs:
         repository: HDFGroup/hdf5
         path: hdf5
     - name: Install dependencies
-      run: sudo apt-get install ninja-build automake autoconf libtool libtool-bin libopenmpi-dev dpdk libraft-dev libboost-dev
+      run: |
+        sudo apt-get update
+        sudo apt-get install -q -y ninja-build automake autoconf libtool libtool-bin libopenmpi-dev dpdk libraft-dev libboost-dev
     - name: Install DAOS
       run: |
         cd daos
