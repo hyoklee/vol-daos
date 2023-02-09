@@ -13,13 +13,11 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: hyoklee/daos
-        token: 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
         path: daos
     - name: Checkout HDF5
       uses: actions/checkout@v3
       with:
         repository: HDFGroup/hdf5
-        token: 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        
         path: hdf5
     - name: Install dependencies
       run: |
