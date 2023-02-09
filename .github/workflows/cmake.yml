@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -q -y ninja-build automake autoconf libtool libtool-bin libmpich-dev dpdk libraft-dev libboost-dev
+        sudo apt-get install -q -y ninja-build automake autoconf libtool libtool-bin mpich libmpich-dev dpdk libraft-dev libboost-dev
     - name: Install DAOS
       run: |
         cd daos
