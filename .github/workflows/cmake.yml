@@ -26,7 +26,8 @@ jobs:
         cd daos
         sudo ./utils/scripts/install-ubuntu.sh
         sudo pip install -r requirements.txt
-        sudo scons --build-deps=yes PREFIX=/usr/local
+        sudo scons --build-deps=yes PREFIX=/usr/local install
+        cd ..
     - name: Install HDF5
       run: |
         cmake --version
