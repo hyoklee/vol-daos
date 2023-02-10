@@ -54,7 +54,7 @@ jobs:
         cmake .. -DHDF5_DIR=/usr/local -DBUILD_TESTING=ON 
         sudo make -j install
         ls /usr/local/lib
-        ctest --output-on-failure
+        sudo ctest --output-on-failure
         
     - name: Upload
       uses: actions/upload-artifact@v2
