@@ -1,7 +1,7 @@
-name: CMake
+name: raft
 on:
   push:
-    branches: [ master- ]
+    branches: [ master ]
   workflow_dispatch:
 jobs:
   build:
@@ -9,10 +9,15 @@ jobs:
     steps:
     - name: Checkout vol-daos
       uses: actions/checkout@v3
+    - name: Checkout raft
+      uses: actions/checkout@v3
+      with:
+        repository: daos-stack/raft
+        path: raft      
     - name: Checkout DAOS
       uses: actions/checkout@v3
       with:
-        repository: hyoklee/daos
+        repository: daos-stack/daos
         path: daos
     - name: Checkout HDF5
       uses: actions/checkout@v3
@@ -22,7 +27,12 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -q -y ninja-build automake autoconf libtool libtool-bin mpich libmpich-dev dpdk libraft-dev libboost-dev
+        sudo apt-get install -q -y ninja-build automake autoconf libtool libtool-bin mpich libmpich-dev dpdk libboost-dev
+    - name: Install raft
+      run: |
+        cd raft
+        sudo scons --build-deps=yes PREFIX=/usr/local install
+        cd ..        
     - name: Install DAOS
       run: |
         cd daos
