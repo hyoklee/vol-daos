@@ -28,6 +28,12 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -q -y ninja-build automake autoconf libtool libtool-bin mpich libmpich-dev dpdk libboost-dev
+    - name: Install Python dependencies
+      run: |
+        cd daos
+        sudo ./utils/scripts/install-ubuntu.sh
+        sudo pip install -r requirements.txt
+        cd ..
     - name: Install raft
       run: |
         cd raft
@@ -36,8 +42,6 @@ jobs:
     - name: Install DAOS
       run: |
         cd daos
-        sudo ./utils/scripts/install-ubuntu.sh
-        sudo pip install -r requirements.txt
         sudo scons --build-deps=yes PREFIX=/usr/local install
         cd ..
     - name: Install HDF5
