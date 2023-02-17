@@ -1,7 +1,7 @@
 name: mpich
 on:
   push:
-    branches: [ master- ]
+    branches: [ master ]
   workflow_dispatch:
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
     - name: Checkout DAOS
       uses: actions/checkout@v3
       with:
-        repository: hyoklee/daos
+        repository: daos-stack/daos
         submodules: recursive        
         path: daos
     - name: Checkout HDF5
@@ -23,11 +23,53 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -q -y ninja-build automake autoconf libtool libtool-bin mpich libmpich-dev dpdk libraft-dev libboost-dev
+        sudo apt-get install -q -y \
+          autoconf \
+          build-essential \
+          clang \
+          clang-format \
+          cmake \
+          curl \
+          fuse3 \
+          git \
+          golang-go \
+          kmod \
+          libaio-dev \
+          libboost-dev \
+          libcmocka-dev \
+          libcunit1-dev \
+          libfuse3-dev \
+          libhwloc-dev \
+          libibverbs-dev \
+          libipmctl-dev \
+          libjson-c-dev \
+          liblz4-dev \
+          libnuma-dev \
+          libmd-dev \
+          libmpich-dev \
+          libprotobuf-c-dev \
+          librdmacm-dev \
+          libssl-dev \
+          libtool-bin \
+          libunwind-dev \
+          libyaml-dev \
+          locales \
+          maven \
+          mpich \
+          numactl \
+          openjdk-8-jdk \
+          patchelf \
+          pciutils \
+          pkg-config \
+          python3-dev \
+          python3-venv \
+          scons \
+          uuid-dev \
+          valgrind \
+          yasm        
     - name: Install DAOS
       run: |
         cd daos
-        sudo ./utils/scripts/install-ubuntu.sh
         sudo pip install -r requirements.txt
         sudo scons --build-deps=yes PREFIX=/usr/local install
         cd ..
