@@ -72,6 +72,7 @@ jobs:
     - name: Install DAOS
       run: |
         cd daos
+        sudo pip install -r https://raw.githubusercontent.com/daos-stack/daos/master/requirements.txt
         sudo scons --build-deps=yes PREFIX=/usr/local
     - name: Install HDF5
       run: |
