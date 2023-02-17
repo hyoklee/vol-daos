@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: daos-stack/daos
-        submodules: recursive        
+        submodules: recursive
         path: daos
     - name: Checkout HDF5
       uses: actions/checkout@v3
@@ -30,6 +30,7 @@ jobs:
           clang-format \
           cmake \
           curl \
+          dpdk \
           fuse3 \
           git \
           golang-go \
