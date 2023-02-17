@@ -56,6 +56,7 @@ jobs:
           libyaml-dev \
           locales \
           maven \
+          meson \
           mpich \
           numactl \
           openjdk-8-jdk \
