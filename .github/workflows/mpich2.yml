@@ -74,7 +74,7 @@ jobs:
       run: |
         cd daos
         sudo pip install -r https://raw.githubusercontent.com/daos-stack/daos/master/requirements.txt
-        sudo scons --build-deps=yes PREFIX=/usr/local
+        sudo scons --build-deps=yes PREFIX=/usr/local install
     - name: Install HDF5
       run: |
         cmake --version
