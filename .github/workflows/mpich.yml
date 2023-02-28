@@ -98,6 +98,8 @@ jobs:
         cmake .. -DHDF5_DIR=/usr/local -DBUILD_TESTING=ON 
         sudo make -j install
         ls /usr/local/lib
+        which h5repack
+        h5repack
         sudo ctest --output-on-failure
         
     - name: Upload
