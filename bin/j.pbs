@@ -47,9 +47,10 @@ echo "NUM_NODES=${NNODES}  TOTAL_RANKS=${NTOTRANKS}  RANKS_PER_NODE=${NRANKS}  T
 echo "OMP_PROC_BIND=$OMP_PROC_BIND OMP_PLACES=$OMP_PLACES"
 module load daos/base
 export HDF5_DAOS_BYPASS_DUNS="YES"
-# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/bin/h5repack
+mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/bin/h5repack 96_dsets.h5 repack_96_dsets.h5
+
 # mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/vol-daos/build/bin/h5vl_test_parallel
-mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/vol-daos/build/bin/h5vl_test
+# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/vol-daos/build/bin/h5vl_test
 # mpiexec -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/hdf5/build/bin/h5perf
 # module load daos/base
 # launch-dfuse.sh  CSC250STDM10:h5
