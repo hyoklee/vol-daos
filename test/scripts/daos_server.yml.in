@@ -1,7 +1,8 @@
 access_points: ['localhost']
 provider: @DAOS_SERVER_TRANSPORT@
 socket_dir: @DAOS_SERVER_SOCKET_DIR@
-nr_hugepages: -1
+# nr_hugepages: -1
+disable_hugepages: true
 control_log_mask: INFO
 control_log_file: @DAOS_LOG_DIR@/daos_control.log
 transport_config:
@@ -11,7 +12,7 @@ transport_config:
 engines:
 -
   targets: 4
-  first_core: 0
+#  first_core: 0
   nr_xs_helpers: 0
   fabric_iface: @DAOS_SERVER_IFACE@
   fabric_iface_port: 31416

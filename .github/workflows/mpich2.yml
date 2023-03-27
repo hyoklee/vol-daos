@@ -1,7 +1,7 @@
 name: DAOS 2.2.0
 on:
   push:
-    branches: [ master- ]
+    branches: [ master ]
   workflow_dispatch:
 jobs:
   build:
@@ -98,9 +98,9 @@ jobs:
         cmake .. -DHDF5_DIR=/usr/local
         sudo make -j install
         ls /usr/local/lib
-        sudo ctest --output-on-failure
+        sudo ctest -V  --output-on-failure .
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
-        name: git.txt
-        path: ${{ runner.workspace }}/vol-daos/hdf5/git.txt
+        name: daos_control.log
+        path: ${{ runner.workspace }}/vol-daos/build/test/daos_control.log

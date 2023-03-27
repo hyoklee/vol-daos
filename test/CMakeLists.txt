@@ -49,7 +49,8 @@ set(DAOS_SERVER_IFACE "lo" CACHE STRING
 mark_as_advanced(DAOS_SERVER_IFACE)
 
 # SCM size
-set(DAOS_SERVER_SCM_SIZE "8" CACHE STRING
+# set(DAOS_SERVER_SCM_SIZE "8" CACHE STRING
+set(DAOS_SERVER_SCM_SIZE "1" CACHE STRING
   "Size of RAM available for storage in GB."
 )
 mark_as_advanced(DAOS_SERVER_SCM_SIZE)
@@ -117,7 +118,8 @@ execute_process(COMMAND chmod u+x ${CMAKE_CURRENT_BINARY_DIR}/scripts/daos_pool.
 #------------------------------------------------------------------------------
 
 # SCM size
-set(DAOS_POOL_SIZE "4" CACHE STRING
+# set(DAOS_POOL_SIZE "4" CACHE STRING
+set(DAOS_POOL_SIZE "1" CACHE STRING
   "Size of pool created for testing in GB."
 )
 mark_as_advanced(DAOS_POOL_SIZE)

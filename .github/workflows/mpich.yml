@@ -15,11 +15,15 @@ jobs:
         repository: daos-stack/daos
         submodules: recursive
         path: daos
+        username: hyoklee
+        token: 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
     - name: Checkout HDF5
       uses: actions/checkout@v3
       with:
         repository: HDFGroup/hdf5
         path: hdf5
+        username: hyoklee
+        token: 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
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -63,6 +67,7 @@ jobs:
           pciutils \
           pkg-config \
           python3-dev \
+          python3-pip \
           python3-venv \
           scons \
           uuid-dev \
