@@ -2,6 +2,8 @@
 # This is a generated file, make sure you edit the .in file
 echo "Sleeping 5s"
 sleep 5
+# env DAOS_AGENT_DRPC_DIR=@DAOS_AGENT_DIR@ \
+# @DAOS_DMG_EXECUTABLE@ -i pool create -s=@DAOS_POOL_SIZE@G --label="daos_vol_test_pool" --nsvc=1
 env DAOS_AGENT_DRPC_DIR=@DAOS_AGENT_DIR@ \
-@DAOS_DMG_EXECUTABLE@ -i pool create -s=@DAOS_POOL_SIZE@G --label="daos_vol_test_pool" --nsvc=1
+@DAOS_DMG_EXECUTABLE@ -i pool create -s=@DAOS_POOL_SIZE@G "daos_vol_test_pool" --nsvc=1
 
