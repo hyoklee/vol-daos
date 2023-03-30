@@ -25,11 +25,11 @@ set(DAOS_SERVER_PREFLAGS
   "-genv DAOS_DISABLE_REQ_FWD 1"
 )
 
-# Postflags
 set(DAOS_SERVER_CONFIG_FILEPATH
   ${CMAKE_CURRENT_BINARY_DIR}/scripts/daos_server.yml
 )
 
+# Postflags
 set(DAOS_SERVER_POSTFLAGS
   "start"
   "--recreate-superblocks"
@@ -107,8 +107,7 @@ find_program(DAOS_DMG_EXECUTABLE
 mark_as_advanced(DAOS_DMG_EXECUTABLE)
 
 # SCM size
-# set(DAOS_POOL_SIZE "4" CACHE STRING
-set(DAOS_POOL_SIZE "1" CACHE STRING
+set(DAOS_POOL_SIZE "4" CACHE STRING
   "Size of pool created for testing in GB."
 )
 mark_as_advanced(DAOS_POOL_SIZE)
@@ -123,8 +122,6 @@ execute_process(COMMAND chmod u+x ${CMAKE_CURRENT_BINARY_DIR}/scripts/daos_pool.
 #------------------------------------------------------------------------------
 # DAOS client config
 #------------------------------------------------------------------------------
-
-
 
 set(HDF5_VOL_TEST_PLUGIN_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(HDF5_VOL_TEST_PLUGIN_NAME "daos")

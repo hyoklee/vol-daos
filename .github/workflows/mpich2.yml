@@ -98,6 +98,8 @@ jobs:
         cmake .. -DHDF5_DIR=/usr/local
         sudo make -j install
         ls /usr/local/lib
+        sudo mkdir /mnt/daos
+        ls /mnt/daos
         sudo ctest -V  --output-on-failure .
     - name: Upload
       uses: actions/upload-artifact@v2
