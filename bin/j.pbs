@@ -15,7 +15,9 @@ export HDF5_VOL_CONNECTOR="daos"
 export HDF5_PLUGIN_PATH="/home/hyoklee/lib"
 export LD_LIBRARY_PATH="/home/hyoklee/lib":$LD_LIBRARY_PATH
 export DAOS_POOL=CSC250STDM10
-
+# If DAOS container is not labeled, define it.
+# export DAOS_CONT=53e66136-de47-4ad2-a97a-30ffc4287aed
+# export DAOS_CONT=b762cddf-af85-49e7-d793-8c3656b41d14
 export TZ='/usr/share/zoneinfo/US/Central'
 export OMP_PROC_BIND=spread
 export OMP_NUM_THREADS=8
@@ -41,17 +43,70 @@ NDEPTH=2
 NTHREADS=$OMP_NUM_THREADS 
 NTOTRANKS=$(( NNODES * NRANKS ))
 
-
 echo "NUM_NODES=${NNODES}  TOTAL_RANKS=${NTOTRANKS}  RANKS_PER_NODE=${NRANKS}  THREADS_PER_RANK=${OMP_NUM_THREADS}"
 
 echo "OMP_PROC_BIND=$OMP_PROC_BIND OMP_PLACES=$OMP_PLACES"
 module load daos/base
+
+# List existing UUIDs.
+daos cont list CSC250STDM10
+
+# This must be set.
 export HDF5_DAOS_BYPASS_DUNS="YES"
-mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/bin/h5repack 96_dsets.h5 repack_96_dsets.h5
+
+# Check if there's any file system that is DAOS UNS-capable.
+# df
+
+## [Generic VOL Test]
+## This is a generic serial test from vol-tests.
+# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/vol-daos/build/bin/h5vl_test
+
+## This test doesn't clean up the file.
+# /home/hyoklee/vol-daos/build/bin/h5vl_test_parallel
 
 # mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/vol-daos/build/bin/h5vl_test_parallel
-# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/vol-daos/build/bin/h5vl_test
+
+## [h5repack]
+## This succeeded only once after DAOS reboot.
+# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/bin/h5repack 96_dsets.h5 repack_96_dsets.h5
+
+## Removing mpiexec doesn't matter.
+#/home/hyoklee/bin/h5repack 96_dsets.h5 repack_96_dsets.h5
+
+## DAOS to DAOS works.
+# /home/hyoklee/bin/h5repack  vol_test_parallel.h5 vol_test_parallel.repack.h5
+
+## DAOS to Native works.
+# /home/hyoklee/bin/h5repack  --src-vol-name=daos --dst-vol-name=native vol_test_parallel.h5 vol_test_parallel.posix.h5
+
+## Test diff.
+# /home/hyoklee/bin/h5diff --vol-name-1=daos --vol-name-2=native vol_test_parallel.h5 vol_test_parallel.posix.h5
+
+## Native to DAOS works with the following error message:
+##   container: DER_NONEXIST(-1005): 'The specified entity does not exist'
+# /home/hyoklee/bin/h5repack --src-vol-name=native --dst-vol-name=daos vol_test_parallel.posix.h5 vol_test_parallel.posix.daos.h5
+/home/hyoklee/bin/h5diff --vol-name-1=native --vol-name-2=daos vol_test_parallel.posix.h5 vol_test_parallel.posix.daos.h5
+
+
+## [h5dump]
+# Both worked well.
+# /home/hyoklee/bin/h5dump   --enable-error-stack=2 --vol-name="daos" repack_96_dsets.h5
+# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/bin/h5dump  --enable-error-stack=2 --vol-name="daos" vol_test_parallel.h5
+## --vol-name option is not critical.
+# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/bin/h5dump  --enable-error-stack=2 vol_test_parallel.h5
+
+# This command is not available yet.
+# daos-serialize 
+
+# Test performance.
 # mpiexec -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/hdf5/build/bin/h5perf
-# module load daos/base
+
+## Test commands from Sunspot tutorial slide.
 # launch-dfuse.sh  CSC250STDM10:h5
 # clean-dfuse.sh  CSC250STDM10:h5
+
+# Check new UUID.
+daos cont list CSC250STDM10
+
+## See what's inside the container.
+#daos cont list-objects CSC250STDM10 ${DAOS_CONT}
