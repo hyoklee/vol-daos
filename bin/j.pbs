@@ -4,7 +4,7 @@
 ## Select 1 for debug
 #PBS -l select=2:system=sunspot,place=scatter
 #PBS -A CSC250STDM12_CNDA 
-#PBS -l walltime=00:01:00
+#PBS -l walltime=00:6:00
 #PBS -N 2NodeRunExample
 #PBS -k doe
 #PBS -q workq
@@ -47,9 +47,11 @@ echo "NUM_NODES=${NNODES}  TOTAL_RANKS=${NTOTRANKS}  RANKS_PER_NODE=${NRANKS}  T
 
 echo "OMP_PROC_BIND=$OMP_PROC_BIND OMP_PLACES=$OMP_PLACES"
 module load daos/base
+module load spack
+module load cmake
 
 # List existing UUIDs.
-daos cont list CSC250STDM10
+# daos cont list CSC250STDM10
 
 # This must be set.
 export HDF5_DAOS_BYPASS_DUNS="YES"
@@ -85,8 +87,16 @@ export HDF5_DAOS_BYPASS_DUNS="YES"
 ## Native to DAOS works with the following error message:
 ##   container: DER_NONEXIST(-1005): 'The specified entity does not exist'
 # /home/hyoklee/bin/h5repack --src-vol-name=native --dst-vol-name=daos vol_test_parallel.posix.h5 vol_test_parallel.posix.daos.h5
-/home/hyoklee/bin/h5diff --vol-name-1=native --vol-name-2=daos vol_test_parallel.posix.h5 vol_test_parallel.posix.daos.h5
 
+## Test diff.
+# /home/hyoklee/bin/h5diff --vol-name-1=native --vol-name-2=daos vol_test_parallel.posix.h5 vol_test_parallel.posix.daos.h5
+
+## Native to DAOS for OESS-253
+# /home/hyoklee/bin/h5repack --src-vol-name=native --dst-vol-name=daos /home/hyoklee/96_dsets.h5 repack_96_dsets.h5
+## Test diff.
+# /home/hyoklee/bin/h5diff --vol-name-1=native --vol-name-2=daos 96_dsets.h5 repack_96_dsets.h5
+## DAOS to Native for OESS-253
+# mpiexec -np ${NTOTRANKS} -ppn ${NRANKS} -d ${NDEPTH} --cpu-bind depth -envall /home/hyoklee/bin/h5repack --src-vol-name=daos --dst-vol-name=native repack_96_dsets.h5 96_dsets.from.daos.h5
 
 ## [h5dump]
 # Both worked well.
@@ -105,8 +115,15 @@ export HDF5_DAOS_BYPASS_DUNS="YES"
 # launch-dfuse.sh  CSC250STDM10:h5
 # clean-dfuse.sh  CSC250STDM10:h5
 
+# /opt/cray/pe/pals/1.2.9/bin/mpiexec -n 2 "/home/hyoklee/hdf5_vol_daos-relwithdebinfo/bin/h5vl_test_parallel"
+cd /home/hyoklee/vol-daos/build
+export HDF5_VOL_DAOS_BUILD_CONFIGURATION="RelWithDebInfo"
+export HDF5_VOL_DAOS_ROOT=/home/hyoklee
+# ctest -S /home/hyoklee/vol-daos.hyoklee/test/scripts/sunspot_script.cmake -VV --output-on-failure .
+ctest -S /home/hyoklee/vol-daos.hyoklee/test/scripts/sunspot_script.cmake --output-on-failure .
+
 # Check new UUID.
-daos cont list CSC250STDM10
+# daos cont list CSC250STDM10
 
 ## See what's inside the container.
 #daos cont list-objects CSC250STDM10 ${DAOS_CONT}
