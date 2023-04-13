@@ -13,10 +13,7 @@ jobs:
     - name: cURL request
       run: curl -s -o out.json 'https://mercury-cdash.hdfgroup.org/api/v1/index.php?project=HDF5_VOL_DAOS'
     - id: date
-      run: |
-        pwd
-        ls
-        python ./bin/cdash.py
+      run: echo "##[set-output name=data;]$(python ./bin/cdash.py)"
     - name: Time badge
       uses: RubbaBoy/BYOB@v1.3.0
       with:
