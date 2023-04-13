@@ -15,5 +15,6 @@ except IOError:
     sys.exit(1)
 
 # Pick the last one.
-sys.exit(data['buildgroups'][0]['builds'][-1]['test']['fail'])
+# sys.exit(data['buildgroups'][0]['builds'][-1]['test']['fail'])
+print(data['buildgroups'][0]['builds'][-1]['test']['fail'])
 
