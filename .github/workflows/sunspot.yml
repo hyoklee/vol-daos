@@ -12,7 +12,6 @@ jobs:
       uses: actions/checkout@v3    
     - name: cURL request
       run: curl -s -o out.json 'https://mercury-cdash.hdfgroup.org/api/v1/index.php?project=HDF5_VOL_DAOS'
-    - name: parse json
     - id: date
       run: |
         pwd
