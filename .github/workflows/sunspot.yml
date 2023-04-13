@@ -3,7 +3,7 @@ name: sunspot
 on:
   schedule:
     # Runs "at minute 55 past every hour" (see https://crontab.guru)
-    - cron: '55 * * * *'
+    - cron: '25 * * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
-        name: git.txt
+        name: out.json
         path: ${{ runner.workspace }}/out.json
       
         

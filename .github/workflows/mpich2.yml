@@ -1,7 +1,7 @@
 name: DAOS 2.2.0
 on:
   push:
-    branches: [ master ]
+    branches: [ master- ]
   workflow_dispatch:
 jobs:
   build:
