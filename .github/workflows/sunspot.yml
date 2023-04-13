@@ -1,0 +1,26 @@
+name: sunspot
+
+on:
+  schedule:
+    # Runs "at minute 55 past every hour" (see https://crontab.guru)
+    - cron: '55 * * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout vol-daos
+      uses: actions/checkout@v3    
+    - name: cURL request
+      run: curl -s -o out.json 'https://mercury-cdash.hdfgroup.org/api/v1/index.php?project=HDF5_VOL_DAOS'
+    - name: parse json
+      run: |
+        pwd
+        ls
+        python ./bin/cdash.py
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: git.txt
+        path: ${{ runner.workspace }}/out.json
+      
+        
