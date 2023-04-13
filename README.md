@@ -1,6 +1,6 @@
 [![sunspot](https://github.com/hyoklee/vol-daos/actions/workflows/sunspot.yml/badge.svg)](https://github.com/hyoklee/vol-daos/actions/workflows/sunspot.yml)
 
-<a href="https://mercury-cdash.hdfgroup.org/index.php?project=HDF5_VOL_DAOS"><img src="https://img.shields.io/badge/dynamic/json?label=Sunspot%20Test%20Failures&query=message&url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyoklee%2Fvol-daos%2Fshields%2Fshields.json"></img></a>
+<a href="https://mercury-cdash.hdfgroup.org/index.php?project=HDF5_VOL_DAOS"><img src="https://img.shields.io/badge/dynamic/json?label=Sunspot%20Test%20Failures&query=status&url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyoklee%2Fvol-daos%2Fshields%2Fshields.json"></img></a>
 
 # HDF5 DAOS VOL connector
 

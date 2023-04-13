@@ -17,9 +17,9 @@ jobs:
     - name: Time badge
       uses: RubbaBoy/BYOB@v1.3.0
       with:
-        schemaVersion: 1
+        NAME: sunspot
         LABEL: 'Sunspot Test Failures'
-        MESSAGE: ${{ steps.date.outputs.data }}
+        STATUS: ${{ steps.date.outputs.data }}
         COLOR: 00EEFF
         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         REPOSITORY: hyoklee/vol-daos
