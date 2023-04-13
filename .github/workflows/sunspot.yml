@@ -21,7 +21,9 @@ jobs:
         LABEL: 'Sunspot Test Failures'
         STATUS: ${{ steps.date.outputs.data }}
         COLOR: 00EEFF
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}        
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        REPOSITORY: hyoklee/vol-daos
+        ACTOR: hyoklee
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
