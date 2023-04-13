@@ -1,3 +1,5 @@
+[![sunspot](https://github.com/hyoklee/vol-daos/actions/workflows/sunspot.yml/badge.svg)](https://github.com/hyoklee/vol-daos/actions/workflows/sunspot.yml)
+
 # HDF5 DAOS VOL connector
 
 [![Latest version][vol-daos-release-svg]][vol-daos-release-link]

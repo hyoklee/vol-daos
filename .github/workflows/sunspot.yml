@@ -13,10 +13,19 @@ jobs:
     - name: cURL request
       run: curl -s -o out.json 'https://mercury-cdash.hdfgroup.org/api/v1/index.php?project=HDF5_VOL_DAOS'
     - name: parse json
+    - id: date
       run: |
         pwd
         ls
         python ./bin/cdash.py
+    - name: Time badge
+      uses: RubbaBoy/BYOB@v1.3.0
+      with:
+        NAME: time
+        LABEL: 'Sunspot Test Failures'
+        STATUS: ${{ steps.date.outputs.data }}
+        COLOR: 00EEFF
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}        
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
