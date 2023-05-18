@@ -3,7 +3,7 @@ name: sunspot cron
 on:
   schedule:
     # Runs "at minute 55 past every hour" (see https://crontab.guru)
-    - cron: '25 * * * *'
+    - cron: '0 0 31 12 *'
 jobs:
   build:
     runs-on: ubuntu-latest
